@@ -1,7 +1,5 @@
 import counter from './index'
 
-    
-
     test('Increment', () =>{
         const initialState = {
             counter: 0,
