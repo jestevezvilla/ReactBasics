@@ -1,3 +1,5 @@
+import _ from 'ramda'
+
 export const immutableCounter = (arr) => {
   
   const list = arr;
@@ -30,7 +32,7 @@ export const immutableObject = (obj) => {
 
   return {
     
-    toggleIdComplete: (id) => {
+    toggleCompleteById: (id) => {
       return obj.map((element) => {
         return (element.id === id) ?
             immutableObject(element).toggleComplete()
@@ -42,7 +44,7 @@ export const immutableObject = (obj) => {
     toggleComplete: () => {
       return {...ob, complete: !ob.complete}
       //return Object.assign({}, ob, {complete: !ob.complete})
-    }
+    },
 
   }
 }

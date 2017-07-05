@@ -37,10 +37,10 @@ test('Immutable object toggleComplete', () => {
     expect(immutable.toggleComplete()).toEqual(oAfter)
 });
 
-test('Immutable array object toggleIdComplete', () => {
+test('Immutable array object toggleCompleteById', () => {
     const oBefore = [{id: 1, text: 'Primero', complete: false}, {id: 2, text: 'Segundo', complete: false}]
     const oAfter = [{id: 1, text: 'Primero', complete: false}, {id: 2, text: 'Segundo', complete: true}]
     const immutable = immutableObject(oBefore)
     deepFreeze(oBefore)
-    expect(immutable.toggleIdComplete(2)).toEqual(oAfter)
+    expect(immutable.toggleCompleteById(2)).toEqual(oAfter)
 });
