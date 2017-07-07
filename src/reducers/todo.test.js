@@ -1,5 +1,5 @@
-import todos from './todo'
-import deepFreeze from 'deep-freeze'
+import todos from './todo';
+import deepFreeze from 'deep-freeze';
 
     test('Add todo', () =>{
         const stateBefore = [];
@@ -12,10 +12,10 @@ import deepFreeze from 'deep-freeze'
             type: 'ADD_TODO',
             id: 0,
             text: 'Comprar queso'
-        }
+        };
         deepFreeze(stateBefore);
         deepFreeze(action);
-        expect(todos(stateBefore, action)).toEqual(stateAfter)
+        expect(todos(stateBefore, action)).toEqual(stateAfter);
     });
 
     test('Toggle todo', () =>{
@@ -45,7 +45,7 @@ import deepFreeze from 'deep-freeze'
         };
         deepFreeze(stateBefore);
         deepFreeze(action);
-        expect(todos(stateBefore, action)).toEqual(stateAfter)
+        expect(todos(stateBefore, action)).toEqual(stateAfter);
     });
 
     test('wrong type', () =>{
@@ -59,9 +59,9 @@ import deepFreeze from 'deep-freeze'
             type: 'ADD_TODOOOOO',
             id: 0,
             text: 'Comprar queso'
-        }
+        };
         deepFreeze(stateBefore);
         deepFreeze(action);
-        expect(todos(stateBefore, action)).toEqual(stateBefore)
-    })
+        expect(todos(stateBefore, action)).toEqual(stateBefore);
+    });
 

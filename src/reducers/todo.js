@@ -11,11 +11,12 @@ const todo = (state, action) => {
             return (state.id === action.id) ? { ...state,
                     completed: !state.completed
                 } :
-                state
+                state;
+
 
 
         default:
-            return state
+            return state;
     }
 };
 
@@ -27,11 +28,11 @@ const todos = (state, action) => {
 
         case 'TOGGLE_TODO':
 
-            return state.map(item => todo(item, action))
+            return state.map(item => todo(item, action));
 
         default:
-            return state
+            return state;
     }
-}
+};
 
-export default todos
+export default todos;
