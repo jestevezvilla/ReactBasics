@@ -1,4 +1,4 @@
-import _ from 'ramda'
+import _ from 'ramda';
 
 export const immutableCounter = (arr) => {
   
@@ -6,29 +6,29 @@ export const immutableCounter = (arr) => {
 
   return {
     addCounter: () => {
-      return [...list, 0]
+      return [...list, 0];
     },
 
     removeCounter: (index) => {
       return [...list.slice(0, index),
               ...list.slice(index + 1)
-      ]
+      ];
     },
 
     incrementCounter: (index) => {
       return [...list.slice(0, index),
               list[index] + 1,
               ...list.slice(index + 1)
-      ]
+      ];
     }
 
-  }
+  };
 
-}
+};
 
 export const immutableObject = (obj) => {
   
-  const ob = obj
+  const ob = obj;
 
   return {
     
@@ -37,15 +37,15 @@ export const immutableObject = (obj) => {
         return (element.id === id) ?
             immutableObject(element).toggleComplete()
             :
-            element
-      })
+            element;
+      });
     },
 
     toggleComplete: () => {
-      return {...ob, complete: !ob.complete}
+      return {...ob, complete: !ob.complete};
       //return Object.assign({}, ob, {complete: !ob.complete})
     },
 
-  }
-}
+  };
+};
 

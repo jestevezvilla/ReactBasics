@@ -1,4 +1,4 @@
-import todos from './todo';
+import {todos, todosApp} from './todo';
 import deepFreeze from 'deep-freeze';
 
     test('Add todo', () =>{
@@ -46,6 +46,43 @@ import deepFreeze from 'deep-freeze';
         deepFreeze(stateBefore);
         deepFreeze(action);
         expect(todos(stateBefore, action)).toEqual(stateAfter);
+    });
+
+    test('Get todos app', () =>{
+        const stateBefore = 
+            {
+                visibilityFilter: 'SHOW_ALL',
+                todos: [{
+                        id: 0,
+                        text: 'Comprar queso',
+                        completed: false
+                    },
+                    {
+                        id: 1,
+                        text: 'Comprar tarta',
+                        completed: false
+                    }]
+            };
+        const stateAfter = {
+                visibilityFilter: 'SHOW_COMPLETED',
+                todos: [{
+                        id: 0,
+                        text: 'Comprar queso',
+                        completed: false
+                    },
+                    {
+                        id: 1,
+                        text: 'Comprar tarta',
+                        completed: false
+                    }]
+            };
+        const action = {
+            type: 'SET_VISIBILITY_FILTER',
+            filter: 'SHOW_COMPLETED'
+        };
+        deepFreeze(stateBefore);
+        deepFreeze(action);
+        expect(todosApp(stateBefore, action)).toEqual(stateAfter);
     });
 
     test('wrong type', () =>{
