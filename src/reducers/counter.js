@@ -9,7 +9,7 @@ const counter = (state = initialState, action) => {
       return state = {
         counter: state.counter + 1,
         clicks: state.clicks + 1
-      }
+      };
     case 'DECREMENT':
       return state = {
         counter: state.counter - 1,
