@@ -9,7 +9,7 @@ const store = createStore(todosApp);
 const render = () => {
   
   ReactDOM.render(
-    <APP store={store} />,
+    <APP store={store} {...store.getState()} />,
     document.getElementById('root')
   );
 };

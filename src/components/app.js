@@ -13,25 +13,33 @@ const getVisibleItems = (todos, filter) => {
 
 };
 
-const FilterLink = ({filter, store, current, children}) => {
-
+const FilterLink =({
+  filter,
+  store,
+  current,
+  children,
+  onClick
+}) => {
+  
   if(filter === current){
     return (<span>{children}</span>);
   }
   return (
-    <a href='#' onClick={(e)=>{
-          e.preventDefault();
-          store.dispatch({
-            type: 'SET_VISIBILITY_FILTER',
-            filter: filter
-          });
-        }}>
+    <a href='#' onClick={(e) => {
+      e.preventDefault();
+      onClick(filter);
+    }}>
           {children}
     </a>
   );
 };
 
-const Todo = ({store, text, completed, onClick}) => (
+const Todo = ({
+  store,
+  text,
+  completed,
+  onClick
+}) => (
     <li onClick={onClick}
         style={{
           textDecoration:
@@ -42,8 +50,11 @@ const Todo = ({store, text, completed, onClick}) => (
   </li>
 );
 
-const TodoList = ({todos, store, onTodoClick}) => (
-
+const TodoList = ({
+  todos,
+  store,
+  onTodoClick
+}) => (
     <ul>
       {todos.map(item => 
         <Todo key={item.id}
@@ -53,53 +64,82 @@ const TodoList = ({todos, store, onTodoClick}) => (
             />
       )}
     </ul>
-
 );
 
-class APP extends React.Component {
+const AddTodo = ({
+  store,
+  onClickAdd,
+  children
+}) => {
+  let inputText;
+  return(
+    <div>
+      <input ref={(node) => inputText=node} />
+      <button onClick={() => onClickAdd(inputText)}>{children}</button>
+    </div>
+  );
+};
+
+const Footer = ({
+  store,
+  current,
+  onFilterClick
+}) => 
+  (
+    <div>
+      <FilterLink filter='SHOW_COMPLETED' store={store} current={current} onClick={onFilterClick}>
+          Completed
+        </FilterLink>
+        {' '}
+        <FilterLink filter='SHOW_ALL' store={store} current={current} onClick={onFilterClick}>
+          ALL
+        </FilterLink>
+        {' '}
+        <FilterLink filter='SHOW_PENDING' store={store} current={current} onClick={onFilterClick}>
+          PENDING
+        </FilterLink>
+    </div>
+  );
+
+const APP = ({
+  store,
+  todos,
+  visibilityFilter
+}) =>
   
-  render(){
-    const store=this.props.store;
-    const todos=this.props.store.getState().todos;
-    const visibilityFilter=this.props.store.getState().visibilityFilter;
-    return (
-      <div>
-        <input ref={(node) => this.input=node} />
-        <button onClick={() =>{
-            store.dispatch(
-              {
-                type: 'ADD_TODO',
-                text: this.input.value
-            });
-            this.input.value='';
-            this.input.focus();
-        }
-        }>Add task</button>
+    (<div>   
+        <AddTodo store={store}
+                 onClickAdd={(input) =>
+                    {store.dispatch({
+                      type: 'ADD_TODO',
+                      text: input.value
+                    });
+                    input.value='';
+                    input.focus();
+                  }}>
+                  Add task
+        </AddTodo>
         
         <TodoList todos={getVisibleItems(todos, visibilityFilter)}
                   store={store}
                   onTodoClick={(id)=>
-                  store.dispatch({
-                    type: 'TOGGLE_TODO',
-                    id: id
-                  })}/>
+                    store.dispatch({
+                      type: 'TOGGLE_TODO',
+                      id: id
+                    })
+                  }/>
 
-        <FilterLink filter='SHOW_COMPLETED' store={store} current={visibilityFilter}>
-          Completed
-        </FilterLink>
-        {' '}
-        <FilterLink filter='SHOW_ALL' store={store} current={visibilityFilter}>
-          ALL
-        </FilterLink>
-        {' '}
-        <FilterLink filter='SHOW_PENDING' store={store} current={visibilityFilter}>
-          PENDING
-        </FilterLink>
+        <Footer store={store}
+                current={visibilityFilter}
+                onFilterClick={(filter)=>{
+                  store.dispatch({
+                    type: 'SET_VISIBILITY_FILTER',
+                    filter: filter
+                  });
+                }}/>
 
       </div>
     );
-  }
-}
 
 export default APP;
 
