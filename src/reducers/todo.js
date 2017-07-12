@@ -1,12 +1,10 @@
 import { combineReducers } from 'redux';
 
-let counterId = 0;
-
 const todo = (state = {}, action) => {
     switch (action.type) {
         case 'ADD_TODO':
             return {
-                id: counterId++,
+                id: action.id,
                 text: action.text,
                 completed: false
             };

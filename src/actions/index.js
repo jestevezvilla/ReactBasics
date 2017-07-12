@@ -1,7 +1,5 @@
-const counter = () => {
+export const counter = () => {
   return {
     type: 'INCREMENT'
-  }
-}
-
-export default counter
+  };
+};
