@@ -1,15 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import APP from './App';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import todosApp from './reducers/todo';
+import configStore from './config/configStore';
+import Root from './components/Root';
 
-  const persistData = {todos:[{id:99, text: 'Nuevo', completed: false}]};
+const store = configStore();
 
   ReactDOM.render(
-    <Provider store ={createStore(todosApp, persistData)}>
-      <APP />
-    </Provider>,
+    <Root store={store} />,
     document.getElementById('root')
   );
