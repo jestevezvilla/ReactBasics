@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 const FilterLink = ({filter, children}) => (
   <NavLink
-    to={'/'+filter}
+    to={`/{filter}`}
     activeStyle={{
       textDecoration: 'none',
       color: 'black'
@@ -19,7 +19,7 @@ const Footer = () =>
     <div>
       <FilterLink filter='completed' >
           Completed
-        </FilterLink>
+        </FilterLink> 
         {' '}
         <FilterLink filter='all'>
           ALL
