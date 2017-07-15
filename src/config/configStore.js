@@ -1,18 +1,21 @@
-import { createStore } from 'redux';
-import throttle from 'lodash/throttle';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { createLogger } from 'redux-logger';
+import promise from 'redux-promise';
+import todosApp from '../reducers/index';
 
-import todosApp from '../reducers/todo';
-import { loadState, saveState } from '../localStorage';
+
 
 const configStore = () => {
-  const persistData = loadState();
-  const store = createStore(todosApp, persistData);
+  
+  let middlewares = [promise];
+  
+  if(process.env.NODE_ENV !== 'production'){
+    middlewares.push(createLogger());
+  }
+  
 
-  store.subscribe(throttle(() => {
-    saveState({
-      todos: store.getState().todos
-    });
-  }, 1000));
+  const store = createStore(todosApp, applyMiddleware(...middlewares));
 
   return store;
 

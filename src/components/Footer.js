@@ -1,10 +1,16 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 const FilterLink = ({filter, children}) => (
   <NavLink
-    to={`/{filter}`}
+    to={`/${filter}`}
+    isActive={(match,location)=>
+      
+      (location.pathname === '/' && filter === 'all')
+      ||
+      (location.pathname === '/' + filter)
+      
+    }
     activeStyle={{
       textDecoration: 'none',
       color: 'black'
