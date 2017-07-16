@@ -20,9 +20,12 @@ export default todos;
 
 export const getVisibleItems = (state, filter) => {
 
-  const ids = fromList.getList(state.listByFilter, filter);
+  const ids = fromList.getList(state.listByFilter[filter]);
   const todos = ids.map(id => fromById.getTodo(state.byId, id));
 
   return todos;
 
 };
+
+export const getIsFetchingItems = (state, filter) => 
+  fromList.getIsFetching(state.listByFilter[filter]);

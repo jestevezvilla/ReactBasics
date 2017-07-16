@@ -1,5 +1,9 @@
+import { combineReducers } from 'redux';
+
 const createList = (filter) => {
-  return (state = [], action) => {
+
+
+  const ids = (state = [], action) => {
     if (action.filter !== filter) {
       return state; //Prevent extra proccesing
     }
@@ -10,7 +14,19 @@ const createList = (filter) => {
         return state;
     }
   };
+
+  const isFetching = (state=false, action) => {
+    if (action.filter !== filter) {
+      return state; //Prevent extra proccesing
+    }
+    return action.type === 'REQUEST_TODOS';
+  };
+
+  return combineReducers({ids, isFetching});
+  
 };
 export default createList;
 
-export const getList = (state, filter) => state[filter];
+export const getList = (state) => state.ids;
+
+export const getIsFetching = (state) => state.isFetching;
