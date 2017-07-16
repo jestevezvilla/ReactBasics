@@ -13,7 +13,10 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 export const fetchTodos = (visibility) => {
 
-  return delay(1500).then(()=>{
+  return delay(1000).then(()=>{
+
+    throw new Error('Error inesperado');
+
     switch (visibility) {
       case 'completed':
         return DB.filter( item => item.completed);    

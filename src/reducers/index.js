@@ -29,3 +29,6 @@ export const getVisibleItems = (state, filter) => {
 
 export const getIsFetchingItems = (state, filter) => 
   fromList.getIsFetching(state.listByFilter[filter]);
+
+export const getIsError = (state, filter) => 
+  fromList.getIsError(state.listByFilter[filter]);
