@@ -1,39 +1,63 @@
-import {v4} from 'node-uuid';
+import {
+  normalize
+} from 'normalizr';
 
-import { getIsFetchingItems, getIsError } from '../reducers';
+import {
+  getIsFetchingItems,
+  getIsError
+} from '../reducers';
 import * as api from '../api';
-
-const requestTodos = (filter) => ({
-  type: 'REQUEST_TODOS',
-  filter,
-});
-
-const receiveTodos = (filter, response) => ({
-  type: 'RECEIVE_TODOS',
-  filter,
-  response
-});
+import * as schema from '../api/schema';
 
 export const fetchTodos = (filter) => (dispatch, getState) => {
 
-  if(getIsFetchingItems(getState(), filter)){
+  if (getIsFetchingItems(getState(), filter)) {
     return Promise.resolve();
   }
 
-  dispatch(requestTodos(filter));
+  dispatch({
+    type: 'REQUEST_TODOS',
+    filter,
+  });
+
   api.fetchTodos(filter)
-    .then(response => dispatch(receiveTodos(filter, response)),
-          error => dispatch({type: 'REQUEST_TODOS_FAILURE', filter, error: error.message})
+    .then(
+      response =>
+        dispatch({
+          type: 'RECEIVE_TODOS',
+          filter,
+          response: normalize(response, schema.arrayOfTodos)
+        }),
+      error =>
+        dispatch({
+          type: 'REQUEST_TODOS_FAILURE',
+          filter,
+          error: error.message
+        })
     );
 };
 
-export const toggleTodo = (id) => ({
-  type: 'TOGGLE_TODO',
-  id
-});
+export const toggleTodo = (id) => (dispatch) => (
 
-export const addTodo = (text) => ({
-  type: 'ADD_TODO',
-  id: v4(),
-  text
-});
+  api.toggleTodo(id)
+  .then(response => 
+    dispatch({
+      type: 'TOGGLE_TODO',
+      toggleId: id,
+      response: normalize(response, schema.todo)
+    })
+  )
+
+);
+
+export const addTodo = (text) => (dispatch) => (
+
+  api.addTodo(text)
+  .then(response =>
+    dispatch({
+      type: 'ADD_TODO',
+      response: normalize(response, schema.todo)
+    })
+  )
+
+);
