@@ -11,7 +11,7 @@
     "deep-freeze": "0.0.1",
     "i18next": "^11.5.0",
     "i18next-browser-languagedetector": "^2.2.3",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "node-uuid": "^1.4.8",
     "normalizr": "^3.2.3",
     "ramda": "^0.24.1",
