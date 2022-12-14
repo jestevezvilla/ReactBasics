@@ -4,7 +4,7 @@
   "private": true,
   "devDependencies": {
     "babel-eslint": "^6.1.2",
-    "react-scripts": "0.9.5"
+    "react-scripts": "5.0.1"
   },
   "dependencies": {
     "babel-plugin-ramda": "^1.2.0",
